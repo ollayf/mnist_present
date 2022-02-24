@@ -1,0 +1,4 @@
+models
+venv
+*pycache*
+.python-version

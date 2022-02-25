@@ -30,7 +30,11 @@ if __name__ == '__main__':
 
     MODEL_PATH = 'detector/models/arch2/20220225_0053'
     IMG_PATH = 'detector/datasets/mine/2.png'
+    IMG_ROOT = 'detector/datasets/mine/'
 
     model = tf.keras.models.load_model(MODEL_PATH)
     model.summary()
-    classify(IMG_PATH, model)
+    for img_file in os.listdir(IMG_ROOT):
+        img_path = os.path.join(IMG_ROOT, img_file)
+        print(f"Classifying {img_path}")
+        classify(img_path, model)

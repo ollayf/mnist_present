@@ -72,8 +72,10 @@ def build_arch5(learning_rate, summary=True):
     model.add(tf.keras.layers.Dense(20, activation=tf.nn.sigmoid))
     model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
 
-    model.compile(optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate), 
-                loss = tf.keras.losses.MeanSquaredError(),
-                metrics = ['accuracy'])
+    model.compile(
+        optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate), 
+        loss = tf.keras.losses.MeanSquaredError(),
+        metrics = [tf.keras.metrics.Accuracy()]
+    )
     
     return model

@@ -35,6 +35,9 @@ test_labels = tf.keras.utils.to_categorical(test_labels)
 
 validation_data = (test_images[:100], test_labels[:100])
 
+print(train_labels.shape)
+input()
+
 def train():
     ARCH_DIR = './models/arch4'
     model = models.build_arch4(learning_rate = LR)

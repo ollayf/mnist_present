@@ -11,6 +11,7 @@ from matplotlib import pyplot as plt
 from utils.files import read_json, write_json
 import utils.models as models
 
+import cv2
 
 # HYPER PARAMS
 LR = 0.01
@@ -27,10 +28,13 @@ BATCH_SIZE = 128
 
 
 def normalise_img(image, label):
+    # image = tf.reshape(image, (28,28))
+    label = tf.one_hot(label, 10)
     return tf.cast(image, tf.float32) / 255., label
 
 train_ds = train_ds.map(
     normalise_img, num_parallel_calls=tf.data.AUTOTUNE)
+
 
 train_ds = train_ds.cache()
 train_ds = train_ds.shuffle(ds_info.splits['train'].num_examples)

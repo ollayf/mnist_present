@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+import cv2
 
 (ds_train, ds_test), ds_info = tfds.load(
     'mnist',
@@ -13,8 +14,17 @@ def normalize_img(image, label):
   """Normalizes images: `uint8` -> `float32`."""
   return tf.cast(image, tf.float32) / 255., tf.one_hot(label, 10)
 
+gen = ds_train.__iter__()
+curr = gen.next()
+print(curr[0].shape)
+print(curr[0].numpy())
+print(curr[1].shape)
+
+input()
+
 ds_train = ds_train.map(
     normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
+
 ds_train = ds_train.cache()
 ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
 ds_train = ds_train.batch(128)

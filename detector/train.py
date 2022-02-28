@@ -36,11 +36,10 @@ test_labels = tf.keras.utils.to_categorical(test_labels)
 validation_data = (test_images[:100], test_labels[:100])
 
 print(train_labels.shape)
-input()
 
 def train():
-    ARCH_DIR = './models/arch4'
-    model = models.build_arch4(learning_rate = LR)
+    ARCH_DIR = './models/arch10'
+    model = models.build_arch10(learning_rate = LR)
     stopped = False # if the training was stopped aburptly for wtv reason
     try:
         model.fit(train_images, train_labels, 

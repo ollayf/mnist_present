@@ -91,8 +91,8 @@ def build_arch10(learning_rate, summary=True):
     model.add(tf.keras.layers.Dense(20, activation=tf.nn.sigmoid))
     model.add(tf.keras.layers.Dense(10, activation=tf.nn.softmax))
 
-    if summary:
-        model.summary()
+    # if summary:
+    #     model.summary()
 
     model.compile(optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate), 
                 loss = tf.keras.losses.MeanSquaredError(),

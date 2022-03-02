@@ -1,4 +1,5 @@
 import React, {useLayoutEffect, useState} from "react";
+import Result from './components/ResultComponent';
 const OFFSET = -80
 const RESULTANT_SIZE = 28
 
@@ -23,42 +24,65 @@ function resizeImage(image, height, width) {
     return result;
 }
 
-function countValues(image) {
-    var count = 0;
-    image.forEach((element) => {
-        if (image[element]) {
-        count += 1;
+// function countValues(image) {
+//     var count = 0;
+//     image.forEach((element) => {
+//         if (image[element]) {
+//         count += 1;
+//         }
+//     });
+//     console.log(count);
+// }
+
+function getResult(result_tensor) {
+    var largest_i = 0;
+    var largest_val = 0;
+    for (var i = 0; i < 10; i += 1) {
+        if (result_tensor[i] > largest_val) {
+            largest_val = result_tensor[i]
+            largest_i = i
         }
-    });
-    console.log(count);
-}
-
-function getData(image) {
-    // create a new XMLHttpRequest
-    var xhr = new XMLHttpRequest()
-
-    // get a callback when the server responds
-    xhr.addEventListener('load', () => {
-      // update the state of the component with the result here
-      console.log(xhr.responseText)
-    })
-    // open the request with the verb and the url
-    xhr.open('POST', 'http://13.215.15.247:8501/v1/models/digit_recognition:predict')
-    // send the request
-    xhr.send(JSON.stringify({ "instances": image}))
+    }
+    return largest_i
 }
 
 const App = () => {
+    
     const [drawing, setDrawing] = useState(false);
+    const [result, setResult] = useState(-1);
+    const [confidence, setConfidence] = useState(0);
     
     useLayoutEffect( () => {
         const canvas = document.getElementById("canvas");
         
         const context = canvas.getContext('2d');
-        context.lineWidth = 40;
+        context.lineWidth = canvas.height/8;
         context.lineCap = "round";
         context.filter = 'grayscale(1)';
     });
+
+    function inference(image) {
+        // create a new XMLHttpRequest
+        var xhr = new XMLHttpRequest()
+    
+        // get a callback when the server responds
+        xhr.addEventListener('load', () => {
+          // update the state of the component with the result here
+          var result = JSON.parse(xhr.responseText)
+          result = result.predictions[0]
+          console.log(result)
+          const value = getResult(result)
+          const confidence = result[value]
+          console.log(result, confidence)
+          setConfidence(confidence)
+          setResult(value)
+          console.log()
+        })
+        // open the request with the verb and the url
+        xhr.open('POST', 'http://13.215.15.247:8501/v1/models/digit_recognition:predict')
+        // send the request
+        xhr.send(JSON.stringify({ "instances": image}))
+    }
 
     function retrieveContext() {
         const canvas = document.getElementById("canvas");
@@ -93,7 +117,7 @@ const App = () => {
         var image = context.getImageData(0, 0, canvas.width, canvas.height).data;
         console.log(image);
         var result = resizeImage(image, canvas.height, canvas.width);
-        getData(result);
+        inference(result);
         clearCanvas(canvas, context);
     }
 
@@ -145,6 +169,7 @@ const App = () => {
             <button onClick={clearButton}>
                 Clear
             </button>
+            <Result confidence={confidence} result={result}></Result>
         </div>
         );
 }

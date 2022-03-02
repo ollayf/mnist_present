@@ -1,6 +1,5 @@
 import React, {useLayoutEffect, useState} from "react";
 import Result from './components/ResultComponent';
-const OFFSET = -80
 const RESULTANT_SIZE = 28
 
 function resizeImage(image, height, width) {
@@ -46,8 +45,18 @@ function getResult(result_tensor) {
     return largest_i
 }
 
+function getRealCoords(event, canvas) {
+    const rect = canvas.getBoundingClientRect();
+    var {clientX, clientY} = event;
+    clientX = clientX - rect.left;
+    clientY = clientY - rect.top
+    return { clientX, clientY }
+}
+
 const App = () => {
-    
+
+    const [canvas, setCanvas] = useState(null);
+    const [context, setContext] = useState(null);
     const [drawing, setDrawing] = useState(false);
     const [result, setResult] = useState(-1);
     const [confidence, setConfidence] = useState(0);
@@ -59,6 +68,10 @@ const App = () => {
         context.lineWidth = canvas.height/8;
         context.lineCap = "round";
         context.filter = 'grayscale(1)';
+        
+        setCanvas(canvas);
+        setContext(context);
+
     });
 
     function inference(image) {
@@ -84,23 +97,12 @@ const App = () => {
         xhr.send(JSON.stringify({ "instances": image}))
     }
 
-    function retrieveContext() {
-        const canvas = document.getElementById("canvas");
-        const context = canvas.getContext("2d");
-        return context;
-    }
-
-    function retrieveCanvas() {
-        return document.getElementById("canvas");
-    }
-
     function initiatePath(x, y, context) {
         context.beginPath();
         context.moveTo(x, y);
     }
 
     function step(x, y, context) {
-        y += OFFSET;
         context.lineTo(x, y);
         context.stroke();
         initiatePath(x, y, context);
@@ -112,61 +114,52 @@ const App = () => {
 
     function submit() {
         console.log(0.7*window.innerHeight);
-        const canvas = retrieveCanvas();
-        const context = retrieveContext();
         var image = context.getImageData(0, 0, canvas.width, canvas.height).data;
         console.log(image);
         var result = resizeImage(image, canvas.height, canvas.width);
         inference(result);
         clearCanvas(canvas, context);
     }
-
-    function clearButton () {
-        const canvas = retrieveCanvas();
-        const context = retrieveContext();
-        clearCanvas(canvas, context);
-    }
     
     const handleMouseDown = (event) => {
         setDrawing(true);
-        const context = retrieveContext();
-        var {clientX, clientY} = event;
-        clientY += OFFSET;
+        var {clientX, clientY} = getRealCoords(event, canvas)
         initiatePath(clientX, clientY, context);
     }
 
     const handleMouseMove = (event) => {
         if (!drawing) return;
-        const {clientX, clientY} = event;
-        const context = retrieveContext();
+        const {clientX, clientY} = getRealCoords(event, canvas);
         step(clientX, clientY, context);
     }
 
     const handleMouseUp = () => {
         setDrawing(false);
-        const context = retrieveContext();
         context.stroke();
     }
 
     return (
         <div>
-            <canvas id="canvas" 
-                
-                width={Math.floor(0.7 * window.innerHeight)} 
-                height={Math.floor(0.7 * window.innerHeight)}
-                style={{
-                    border: '2px solid #000',
-                  }}
-                onMouseDown= {handleMouseDown}
-                onMouseMove= {handleMouseMove}
-                onMouseUp= {handleMouseUp}
-            >
-                Canvas
-            </canvas>
+            <div>
+                <canvas id="canvas" 
+                    
+                    width={Math.floor(0.7 * window.innerHeight)} 
+                    height={Math.floor(0.7 * window.innerHeight)}
+                    style={{
+                        border: '2px solid #000',
+                    }}
+                    onMouseDown= {handleMouseDown}
+                    onMouseMove= {handleMouseMove}
+                    onMouseUp= {handleMouseUp}
+                >
+                    Canvas
+                </canvas>
+            </div>
+            <lb></lb>
             <button onClick={submit}>
                 Submit
             </button>
-            <button onClick={clearButton}>
+            <button onClick={clearCanvas}>
                 Clear
             </button>
             <Result confidence={confidence} result={result}></Result>

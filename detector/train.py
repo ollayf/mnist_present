@@ -12,7 +12,7 @@ import utils.models as models
 
 # HYPER PARAMS
 LR = 0.01
-EPOCHS = 100
+EPOCHS = 200
 BATCH_SIZE = 64
 
 objects = tf.keras.datasets.mnist
@@ -38,8 +38,8 @@ validation_data = (test_images[:100], test_labels[:100])
 print(train_labels.shape)
 
 def train():
-    ARCH_DIR = './models/arch10'
-    model = models.build_arch10(learning_rate = LR)
+    ARCH_DIR = './models/arch8'
+    model = models.build_arch8(learning_rate = LR)
     stopped = False # if the training was stopped aburptly for wtv reason
     try:
         model.fit(train_images, train_labels, 
@@ -84,4 +84,3 @@ def train():
 
 if __name__ == '__main__':
     model = train()
-    model.summary()

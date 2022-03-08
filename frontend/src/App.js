@@ -13,7 +13,7 @@ function resizeImage(image, height, width) {
         for (var j = 0; j < RESULTANT_SIZE; j += 1) {
             const index = row_start + j * w_diff * 4 + 3
             if (image[index]) {
-                row.push(255)
+                row.push(1)
             } else {
                 row.push(0)
             }
@@ -108,9 +108,10 @@ const App = () => {
         initiatePath(x, y, context);
     }
 
-    function clearCanvas(canvas, context) {
+    function clearCanvas() {
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
+
 
     function submit() {
         console.log(0.7*window.innerHeight);

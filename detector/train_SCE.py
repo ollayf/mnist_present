@@ -12,7 +12,7 @@ from utils.files import read_json, write_json
 import utils.models as models
 
 # hyper params
-EPOCHS = 50
+EPOCHS = 40
 BATCH_SIZE = 128
 LR = 0.001
 
@@ -33,17 +33,17 @@ ds_train = ds_train.map(
 
 ds_train = ds_train.cache()
 ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
-ds_train = ds_train.batch(128)
+ds_train = ds_train.batch(BATCH_SIZE)
 ds_train = ds_train.prefetch(tf.data.AUTOTUNE)
 
 ds_test = ds_test.map(
     normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
-ds_test = ds_test.batch(128)
+ds_test = ds_test.batch(BATCH_SIZE)
 ds_test = ds_test.cache()
 ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
 
-ARCH_DIR = './models/arch31'
-model = models.build_arch31(learning_rate= LR)
+ARCH_DIR = './models/arch40'
+model = models.build_arch40(learning_rate= LR)
 
 stopped = False
 try:
@@ -69,7 +69,6 @@ model_path = os.path.join(ARCH_DIR, curr_time)
 results_path = os.path.join(ARCH_DIR, 'results.json')
 
 data = read_json(results_path)
-print(data)
 
 model_data = {
     'time_completed': curr_time,

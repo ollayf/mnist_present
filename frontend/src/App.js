@@ -60,6 +60,7 @@ const App = () => {
     const [drawing, setDrawing] = useState(false);
     const [result, setResult] = useState(-1);
     const [confidence, setConfidence] = useState(0);
+    const [ultraInstinctMode, setUlIn] = useState(false);
     
     useLayoutEffect( () => {
         const canvas = document.getElementById("canvas");
@@ -139,6 +140,10 @@ const App = () => {
         context.stroke();
     }
 
+    const ultraInstinct = () => {
+        setUlIn(true);
+    }
+
     return (
         <div>
             <div>
@@ -162,6 +167,9 @@ const App = () => {
             </button>
             <button onClick={clearCanvas}>
                 Clear
+            </button>
+            <button onClick={ultraInstinct}>
+                Ultra Instinct
             </button>
             <Result confidence={confidence} result={result}></Result>
         </div>

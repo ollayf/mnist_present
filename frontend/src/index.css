@@ -13,3 +13,10 @@ code {
     monospace;
 }
 
+.ulin-button {
+  margin: 0 0 10px;
+  font-family : notoserif;
+  background-color: cyan;
+  font-size: 20px;
+  border-color: grey;
+}

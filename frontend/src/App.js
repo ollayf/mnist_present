@@ -1,5 +1,6 @@
 import React, {useLayoutEffect, useState} from "react";
 import Result from './components/ResultComponent';
+import Header from './components/Header';
 const RESULTANT_SIZE = 28
 
 function resizeImage(image, height, width) {
@@ -22,17 +23,6 @@ function resizeImage(image, height, width) {
 
     return result;
 }
-
-// function countValues(image) {
-//     var count = 0;
-//     image.forEach((element) => {
-//         if (image[element]) {
-//         count += 1;
-//         }
-//     });
-//     console.log(count);
-// }
-
 function getResult(result_tensor) {
     var largest_i = 0;
     var largest_val = 0;
@@ -92,6 +82,7 @@ const App = () => {
           setResult(value)
           console.log()
         })
+        // TODO: Make the query to different model based on state
         // open the request with the verb and the url
         xhr.open('POST', 'http://13.215.15.247:8501/v1/models/digit_recognition:predict')
         // send the request
@@ -140,17 +131,18 @@ const App = () => {
         context.stroke();
     }
 
-    const ultraInstinct = () => {
-        setUlIn(true);
+    const handleUlIn = () =>{
+        setUlIn(!ultraInstinctMode)
     }
 
     return (
         <div>
+            <Header mode={ultraInstinctMode}/>
             <div>
                 <canvas id="canvas" 
                     
-                    width={Math.floor(0.7 * window.innerHeight)} 
-                    height={Math.floor(0.7 * window.innerHeight)}
+                    width={Math.min(Math.floor(0.7 * window.innerHeight), Math.floor(0.7 * window.innerWidth))} 
+                    height={Math.min(Math.floor(0.7 * window.innerHeight), Math.floor(0.7 * window.innerWidth))}
                     style={{
                         border: '2px solid #000',
                     }}
@@ -161,15 +153,16 @@ const App = () => {
                     Canvas
                 </canvas>
             </div>
-            <lb></lb>
+            <div>
+                <button className="ulin-button" onClick={handleUlIn}>
+                    {ultraInstinctMode ? "Normal Mode" : "Ultra Instinct Mode"}
+                </button>
+            </div>
             <button onClick={submit}>
                 Submit
             </button>
             <button onClick={clearCanvas}>
                 Clear
-            </button>
-            <button onClick={ultraInstinct}>
-                Ultra Instinct
             </button>
             <Result confidence={confidence} result={result}></Result>
         </div>

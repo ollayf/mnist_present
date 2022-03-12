@@ -193,9 +193,12 @@ def build_arch32(learning_rate):
     )   
     return model 
 
+'''
+The 40 series are the ones that include typical Conv techniques
+'''
 def build_arch40(learning_rate):
     model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
+        tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
         tf.keras.layers.MaxPooling2D((2,2)),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(100, activation='sigmoid'),
@@ -206,4 +209,64 @@ def build_arch40(learning_rate):
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
     )   
+    return model 
+
+def build_arch41(learning_rate):
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, (3,3), activation='relu'),
+        tf.keras.layers.MaxPooling2D((2,2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(56, activation='sigmoid'),
+        tf.keras.layers.Dense(10)
+    ])
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
+    )   
+    return model 
+
+def build_arch42(learning_rate):
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, (3,3), activation='relu'),
+        tf.keras.layers.MaxPooling2D((2,2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(56, activation='sigmoid'),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate),
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
+    )   
+    return model 
+
+'''
+This series is for architecture
+'''
+def build_arch50(learning_rate):
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(28, 28, 1)),
+        tf.keras.layers.MaxPooling2D((2,2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(56, activation='relu'),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    model.compile(optimizer = tf.keras.optimizers.SGD(learning_rate = learning_rate), 
+                loss = tf.keras.losses.MeanSquaredError(),
+                metrics = ['accuracy'])
+    return model 
+
+def build_arch51(learning_rate):
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(28, 28, 1)),
+        tf.keras.layers.MaxPooling2D((2,2)),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(56, activation='relu'),
+        tf.keras.layers.Dense(10, activation='softmax')
+    ])
+    model.compile(optimizer = tf.keras.optimizers.Adam(learning_rate = learning_rate), 
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[tf.keras.metrics.SparseCategoricalAccuracy()],
+    )
     return model 

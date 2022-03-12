@@ -11,7 +11,7 @@ from utils.files import read_json, write_json
 import utils.models as models
 
 # HYPER PARAMS
-LR = 0.01
+LR = 0.001
 EPOCHS = 200
 BATCH_SIZE = 64
 
@@ -38,8 +38,8 @@ validation_data = (test_images[:100], test_labels[:100])
 print(train_labels.shape)
 
 def train():
-    ARCH_DIR = './models/arch8'
-    model = models.build_arch8(learning_rate = LR)
+    ARCH_DIR = './models/arch40'
+    model = models.build_arch40(learning_rate = LR)
     stopped = False # if the training was stopped aburptly for wtv reason
     try:
         model.fit(train_images, train_labels, 

@@ -22,3 +22,16 @@ Go into the frontend folder
 npm install
 npm start
 ```
+
+# Backend
+## Stack
+- Tensorflow Server
+- Flask backend (scuffed provision of CORS headers)
+- nginx proxy
+
+## Tensorflow Server
+A tensorflow server which holds our best FCN and CNN for MNIST dataset
+[Our FCN](detector/summaries/arch8_20220307_0024.md)
+
+# Collaborators
+@WilsonOh

@@ -42,8 +42,8 @@ ds_test = ds_test.batch(BATCH_SIZE)
 ds_test = ds_test.cache()
 ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
 
-ARCH_DIR = './models/arch40'
-model = models.build_arch40(learning_rate= LR)
+ARCH_DIR = './models/arch43'
+model = models.build_arch43(learning_rate= LR)
 
 stopped = False
 try:

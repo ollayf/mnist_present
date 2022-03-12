@@ -50,7 +50,7 @@ const App = () => {
     const [drawing, setDrawing] = useState(false);
     const [result, setResult] = useState(-1);
     const [confidence, setConfidence] = useState(0);
-    const [ultraInstinctMode, setUlIn] = useState(false);
+    const [ultraInstinctMode, setUlIn] = useState(0);
     
     useLayoutEffect( () => {
         const canvas = document.getElementById("canvas");
@@ -84,9 +84,13 @@ const App = () => {
         })
         // TODO: Make the query to different model based on state
         // open the request with the verb and the url
-        xhr.open('POST', 'http://13.215.15.247:8501/v1/models/digit_recognition:predict')
+        xhr.open('POST', `http://13.215.15.247:3000/submit`)
         // send the request
-        xhr.send(JSON.stringify({ "instances": image}))
+        xhr.send(JSON.stringify(
+            { 
+                "image": image, 
+                "version": ultraInstinctMode
+            }))
     }
 
     function initiatePath(x, y, context) {
@@ -132,7 +136,7 @@ const App = () => {
     }
 
     const handleUlIn = () =>{
-        setUlIn(!ultraInstinctMode)
+        setUlIn(1-ultraInstinctMode)
     }
 
     return (

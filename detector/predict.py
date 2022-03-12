@@ -28,8 +28,8 @@ def classify(img_path, model):
 
 if __name__ == '__main__':
 
-    MODEL_PATH = 'detector/models/arch2/20220225_0053'
-    IMG_PATH = 'detector/datasets/mine/2.png'
+    MODEL_PATH = 'detector/models/arch50/20220312_2200'
+    IMG_PATH = 'detector/datasets/mine/9.png'
 
     model = tf.keras.models.load_model(MODEL_PATH)
     model.summary()

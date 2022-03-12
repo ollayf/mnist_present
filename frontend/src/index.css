@@ -23,12 +23,15 @@ code {
 
 .ulin {
   background-color: rgb(0, 140, 255);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.normal {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 canvas {
   background-color: white;
-}
-
-.header {
-  margin-top: 50px;
 }

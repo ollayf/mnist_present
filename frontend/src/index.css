@@ -22,9 +22,13 @@ code {
 }
 
 .ulin {
-  background-color: blue;
+  background-color: rgb(0, 140, 255);
 }
 
-.canvas {
+canvas {
   background-color: white;
+}
+
+.header {
+  margin-top: 50px;
 }

@@ -137,7 +137,7 @@ const App = () => {
 
     return (
         <div className={ultraInstinctMode ? 'ulin' : "normal"}>
-            <Header className='canvas' mode={ultraInstinctMode}/>
+            <Header className="header" mode={ultraInstinctMode}/>
             <div>
                 <canvas id="canvas" 
                     

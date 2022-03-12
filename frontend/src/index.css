@@ -20,3 +20,11 @@ code {
   font-size: 20px;
   border-color: grey;
 }
+
+.ulin {
+  background-color: blue;
+}
+
+.canvas {
+  background-color: white;
+}

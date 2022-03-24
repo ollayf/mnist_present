@@ -1,21 +1,36 @@
 body {
   text-align: center;
   margin: auto;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.flex-container {
+  display: flex;
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+  justify-content: center;
+}
+
+.example-image-text {
+  font-size: 1.4em;
+  width: 25%;
+  word-wrap: break-word;
+  margin-right: 10px;
 }
 
 .ulin-button {
   margin: 0 0 10px;
-  font-family : notoserif;
+  font-family: notoserif;
   background-color: cyan;
   font-size: 20px;
   border-color: grey;

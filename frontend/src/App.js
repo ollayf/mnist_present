@@ -191,6 +191,9 @@ const App = () => {
       <button onClick={submit}>Submit</button>
       <button onClick={clearCanvas}>Clear</button>
       <Result confidence={confidence} result={result}></Result>
+      <div className="footer">
+        Created by MA1508E Tutorial T10 Group A 21/22 Semester 2
+      </div>
     </div>
   );
 };

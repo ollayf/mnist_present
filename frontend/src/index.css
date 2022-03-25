@@ -32,6 +32,16 @@ h1 {
   margin-right: 10px;
 }
 
+.footer {
+  margin: auto;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  text-align: center;
+  font-size: small;
+}
+
 .ulin-button {
   margin: 0 0 10px;
   font-family: notoserif;

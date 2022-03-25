@@ -6,7 +6,7 @@ class Header extends Component {
     }
 
     render () {
-        if (this.props.mode == 1) {
+        if (this.props.mode === 1) {
             return (
                 <h1>
                     Ultra Instinct!!

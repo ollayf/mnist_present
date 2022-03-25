@@ -63,7 +63,7 @@ const App = () => {
 
     setCanvas(canvas);
     setContext(context);
-  });
+  }, []);
 
   function inference(image) {
     // create a new XMLHttpRequest
@@ -80,6 +80,7 @@ const App = () => {
       console.log(result, confidence);
       setConfidence(confidence);
       setResult(value);
+      window.scrollBy(0, 500);
       console.log();
     });
     // open the request with the verb and the relative url
@@ -139,6 +140,7 @@ const App = () => {
 
   const handleUlIn = () => {
     setUlIn(1 - ultraInstinctMode);
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -148,6 +150,7 @@ const App = () => {
         <div className="flex-container">
           <p className="example-image-text">
             Centre your drawing and maximise the space used for the best result.
+            <br></br>
             Example: "0”:
           </p>
           <img
@@ -155,6 +158,8 @@ const App = () => {
             alt="example-digit"
             style={{
               border: "2px solid black",
+              width: "112px",
+              height: "112px",
             }}
           />
         </div>

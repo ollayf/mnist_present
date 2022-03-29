@@ -42,6 +42,7 @@ def train():
     model = models.build_arch40(learning_rate = LR)
     stopped = False # if the training was stopped aburptly for wtv reason
     try:
+        # Update weights using MNIST train dataset
         model.fit(train_images, train_labels, 
         epochs = EPOCHS, batch_size = BATCH_SIZE,
         validation_data = validation_data,

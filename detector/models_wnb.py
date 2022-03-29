@@ -14,6 +14,7 @@ def model_sum_print(summ):
     with open(SUMMARY_FILE, 'w+') as f:
         print(summ, file=f)
 
+
 def model_details(model, summary_file):
 
     with open(summary_file, 'w') as f:
@@ -25,11 +26,16 @@ def model_details(model, summary_file):
     for layer in layers:
         if isinstance(layer, tf.keras.layers.Dense):
             params = layer.get_weights()
-            weights = "Weights: {}\n\n".format(params[0])
+            # prepare weights
+            weights = ''
+            for row in params[0]:
+                weights += repr(row.tolist()) + '\n'
+            weights = "Weights: [\n{}]\n\n".format(weights)
             biases = "Biases: {}\n".format(params[1])
             write_file(summary_file, f"## Layer {count}\n\n")
             write_file(summary_file, weights + biases)
             print(weights + biases)
+            # tf.print(params[0])
             count += 1
 
 

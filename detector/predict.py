@@ -28,7 +28,7 @@ def classify(img_path, model):
 
 if __name__ == '__main__':
 
-    MODEL_PATH = 'detector/models/arch50/20220312_2200'
+    MODEL_PATH = 'detector/models/arch8/20220312_2200'
     IMG_PATH = 'detector/datasets/mine/9.png'
 
     model = tf.keras.models.load_model(MODEL_PATH)
